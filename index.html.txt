@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Elektrocaldas - Tu felicidad empieza con estilo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #f5f5f5;
+            color: #1A2A6A;
+        }
+        :root {
+            --amarillo: #FFD700;
+            --azul-oscuro: #1A2A6A;
+            --azul-claro: #2A3A8A;
+            --gris-claro: #f0f0f0;
+            --blanco: #ffffff;
+            --sombra: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        header {
+            background: linear-gradient(135deg, var(--amarillo) 50%, var(--azul-oscuro) 50%);
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            box-shadow: var(--sombra);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .logo h1 {
+            color: var(--azul-oscuro);
+            font-size: 2rem;
+            font-weight: 800;
+        }
+        .logo span { color: var(--blanco); }
+        .logo p {
+            color: var(--blanco);
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+        .cart-icon {
+            background: var(--blanco);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: none;
+        }
+        .cart-count {
+            background: var(--azul-oscuro);
+            color: var(--blanco);
+            border-radius: 50%;
+            padding: 2px 10px;
+        }
+        .banner {
+            background: var(--azul-oscuro);
+            color: var(--blanco);
+            text-align: center;
+            padding: 40px 20px;
+            margin: 20px 5%;
+            border-radius: 20px;
+        }
+        .banner span { color: var(--amarillo); }
+        .products-section { padding: 20px 5%; }
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        .product-card {
+            background: var(--blanco);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: var(--sombra);
+            border-top: 5px solid var(--amarillo);
+        }
+        .product-image {
+            width: 100%;
+            height: 200px;
+            background: var(--gris-claro);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+        .product-card h3 {
+            font-size: 1.1rem;
+            min-height: 50px;
+            margin: 10px 0;
+        }
+        .price {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin: 10px 0;
+        }
+        .btn-add {
+            background: var(--amarillo);
+            color: var(--azul-oscuro);
+            border: none;
+            padding: 12px;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+        }
+        .payment-section {
+            padding: 40px 5%;
+            background: var(--blanco);
+            margin: 30px 5%;
+            border-radius: 20px;
+        }
+        .payment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .payment-item {
+            background: var(--gris-claro);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+        }
+        .about-section {
+            padding: 40px 5%;
+            background: var(--azul-oscuro);
+            color: var(--blanco);
+            margin: 30px 5%;
+            border-radius: 20px;
+        }
+        .cart-overlay {
+            position: fixed;
+            top: 0;
+            right: -450px;
+            width: 100%;
+            max-width: 420px;
+            height: 100%;
+            background: var(--blanco);
+            transition: 0.4s;
+            z-index: 2000;
+            padding: 25px;
+            overflow-y: auto;
+        }
+        .cart-overlay.open { right: 0; }
+        .btn-checkout {
+            background: var(--azul-oscuro);
+            color: var(--blanco);
+            border: none;
+            padding: 15px;
+            border-radius: 30px;
+            font-weight: bold;
+            width: 100%;
+            margin-top: 15px;
+            cursor: pointer;
+        }
+        .whatsapp-float {
+            position: fixed;
+            bottom: 25px;
+            left: 25px;
+            background: #25D366;
+            color: white;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            text-decoration: none;
+            z-index: 1500;
+        }
+        footer {
+            background: var(--azul-oscuro);
+            color: var(--blanco);
+            text-align: center;
+            padding: 25px;
+        }
+    </style>
+</head>
+<body>
+   <header>
+    <div class="logo" style="display: flex; align-items: center; gap: 15px;">
+        <img src="https://raw.githubusercontent.com/johng1991/Elektrocaldas--tienda/main/logo.png" alt="Elektrocaldas" style="height: 60px; width: auto;">
+        <div>
+            <h1 style="margin: 0; font-size: 1.8rem;">⚡ Elektro<span style="color: white;">caldas</span></h1>
+            <p style="margin: 0; font-size: 0.8rem; font-style: italic; color: white;">"Tu felicidad empieza con estilo"</p>
+        </div>
+    </div>
+    <button class="cart-icon" onclick="toggleCart()">
+        🛒 Carrito <span class="cart-count" id="cartCount">0</span>
+    </button>
+</header>    <section class="banner">
+        <h2>Bienvenido a <span>Elektrocaldas</span></h2>
+        <p>Los mejores electrodomésticos con opciones de pago flexibles</p>
+    </section>
+    <section class="products-section">
+        <h2>🛍️ Nuestros Productos</h2>
+        <div class="products-grid" id="productsGrid"></div>
+    </section>
+    <section class="payment-section">
+        <h2>💳 Métodos de Pago</h2>
+        <div class="payment-grid">
+            <div class="payment-item"><h4>🧾 Factura de Servicios</h4><p>Paga con tu factura de agua, luz o gas. Sin comisiones.</p></div>
+            <div class="payment-item"><h4>📱 Addi</h4><p>Cuotas sin tarjeta de crédito. Aprobación en minutos.</p></div>
+            <div class="payment-item"><h4>🏦 Sistecredito</h4><p>Crédito directo con nosotros. Cuotas fijas.</p></div>
+            <div class="payment-item"><h4>💳 Tarjeta de Crédito</h4><p>Visa, Mastercard, American Express. Hasta 12 cuotas.</p></div>
+        </div>
+    </section>
+    <section class="about-section">
+        <h2>🌟 Sobre Elektrocaldas</h2>
+        <p>Somos un negocio familiar con más de 5 años de experiencia en electrodomésticos en Caldas. Ofrecemos productos de alta calidad con opciones de pago flexibles para mejorar tu hogar sin complicaciones.</p>
+    </section>
+    <div class="cart-overlay" id="cartOverlay">
+        <button class="close-cart" onclick="toggleCart()">✕</button>
+        <h2>🛒 Tu Carrito</h2>
+        <div id="cartItems"><p>El carrito está vacío</p></div>
+        <div class="cart-total"><span>Total:</span><span id="cartTotal">$0</span></div>
+        <button class="btn-checkout" onclick="checkout()">📲 Comprar ahora por WhatsApp</button>
+    </div>
+    <a href="https://wa.me/573133100740" target="_blank" class="whatsapp-float">💬</a>
+    <footer>
+        <p>© 2025 Elektrocaldas - Todos los derechos reservados</p>
+    </footer>
+    <script>
+        const productos = [
+            { id: 1, nombre: "Nevera Haceb No Frost 448L Titanio", precio: 3260000, descripcion: "428L netos. No Frost. 10 años garantía compresor.", emoji: "🧊" },
+            { id: 2, nombre: "Nevera Hyundai 298L No Frost Plateado", precio: 2510000, descripcion: "Dispensador de agua externo. Acabado plateado.", emoji: "❄️" },
+            { id: 3, nombre: "Nevecón MABE Side by Side 439L Black Steel", precio: 3770000, descripcion: "Display Digital. Compresor TecInverter (67% ahorro).", emoji: "🏗️" },
+            { id: 4, nombre: "Portátil Lenovo Slim", precio: 2280000, descripcion: "Ryzen 3, 16GB RAM, 512GB SSD, Pantalla 15.6\".", emoji: "💻" },
+            { id: 5, nombre: "Lavadora Mabe Carga Superior 18KG Gris", precio: 2499000, descripcion: "Motor Inverter, 9 ciclos automáticos.", emoji: "🧺" },
+            { id: 6, nombre: "Lavadora LG 18KG Negro TurboDrum", precio: 2570000, descripcion: "Smart motion, Motor Smart Inverter, Turbo Drum.", emoji: "⚡" },
+            { id: 7, nombre: "Lavadora Midea 16KG Wave Wash", precio: 2110000, descripcion: "10 años garantía motor. Dispensador con aspas.", emoji: "🌊" },
+            { id: 8, nombre: "TV CHALLENGER 32\" Smart TV Google", precio: 940000, descripcion: "HD, Google TV, WiFi.", emoji: "📺" },
+            { id: 9, nombre: "TV CHALLENGER 43\" Smart TV Google", precio: 1430000, descripcion: "Full HD, Google TV, Bluetooth, USB.", emoji: "📺" },
+            { id: 10, nombre: "iFFALCON 55\" 4K Smart TV Google", precio: 2170000, descripcion: "4K, Google TV, 2 años de garantía.", emoji: "🖥️" },
+            { id: 11, nombre: "Estufa Romero Torre Haceb 50cm Gas Natural", precio: 1020000, descripcion: "4 quemadores, encendido eléctrico.", emoji: "🔥" },
+            { id: 12, nombre: "Samsung Galaxy A17 256GB", precio: 1095000, descripcion: "8GB RAM, 256GB, Super AMOLED, 50MP, 5000mAh.", emoji: "📱" }
+        ];
+        let cart = [];
+        function renderProducts() {
+            const grid = document.getElementById('productsGrid');
+            grid.innerHTML = '';
+            productos.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.innerHTML = `
+                    <div class="product-image">${p.emoji}</div>
+                    <h3>${p.nombre}</h3>
+                    <div class="price">$${p.precio.toLocaleString()} <span>COP</span></div>
+                    <div class="description">${p.descripcion}</div>
+                    <button class="btn-add" onclick="addToCart(${p.id})">🛒 Agregar al carrito</button>
+                `;
+                grid.appendChild(card);
+            });
+        }
+        function addToCart(id) {
+            const product = productos.find(p => p.id === id);
+            const existing = cart.find(item => item.id === id);
+            if (existing) existing.cantidad++;
+            else cart.push({ ...product, cantidad: 1 });
+            updateCartUI();
+        }
+        function removeFromCart(id) {
+            const index = cart.findIndex(item => item.id === id);
+            if (index !== -1) {
+                if (cart[index].cantidad > 1) cart[index].cantidad--;
+                else cart.splice(index, 1);
+            }
+            updateCartUI();
+        }
+        function getTotal() {
+            return cart.reduce((sum, item) => sum + item.precio * item.cantidad, 0);
+        }
+        function getTotalItems() {
+            return cart.reduce((sum, item) => sum + item.cantidad, 0);
+        }
+        function updateCartUI() {
+            document.getElementById('cartCount').textContent = getTotalItems();
+            const container = document.getElementById('cartItems');
+            if (cart.length === 0) {
+                container.innerHTML = '<p>El carrito está vacío</p>';
+            } else {
+                container.innerHTML = cart.map(item => `
+                    <div class="cart-item">
+                        <div class="cart-item-info">
+                            <h4>${item.emoji} ${item.nombre}</h4>
+                            <p>$${item.precio.toLocaleString()} x ${item.cantidad}</p>
+                        </div>
+                        <div class="cart-item-actions">
+                            <button onclick="removeFromCart(${item.id})">−</button>
+                            <span>${item.cantidad}</span>
+                            <button onclick="addToCart(${item.id})">+</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            document.getElementById('cartTotal').textContent = '$' + getTotal().toLocaleString();
+        }
+        function toggleCart() {
+            document.getElementById('cartOverlay').classList.toggle('open');
+        }
+        function checkout() {
+            if (cart.length === 0) {
+                alert('🛒 El carrito está vacío');
+                return;
+            }
+            const mensaje = cart.map(item =>
+                `- ${item.emoji} ${item.nombre}: $${item.precio.toLocaleString()} x ${item.cantidad} = $${(item.precio * item.cantidad).toLocaleString()}`
+            ).join('%0A');
+            const total = getTotal();
+            const url = `https://wa.me/573133100740?text=¡Hola%20Elektrocaldas!%20Quiero%20comprar:%0A%0A${mensaje}%0A%0A📦%20*Total:%20$${total.toLocaleString()}*%0A%0A💳%20Deseo%20pagar%20con:%0A- Factura de servicios%0A- Addi%0A- Sistecredito%0A- Tarjeta de crédito`;
+            toggleCart();
+            window.open(url, '_blank');
+        }
+        renderProducts();
+        updateCartUI();
+    </script>
+</body>
+</html>
